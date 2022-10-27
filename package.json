@@ -1,0 +1,20 @@
+{
+  "name": "mern-stack-project",
+  "version": "1.0.0",
+  "description": "API for test my skills in the MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Glightman/MERN-Stack-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Glightman/MERN-Stack-Project/issues"
+  },
+  "homepage": "https://github.com/Glightman/MERN-Stack-Project#readme"
+}
