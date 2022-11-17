@@ -1,5 +1,5 @@
-const userService = require("../services/user.service");
-const mongoose = require("mongoose");
+import userService from "../services/user.service.js";
+import mongoose from 'mongoose';
 
 
 /* ==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/==/ */
@@ -92,4 +92,4 @@ const update = async (req, res) => {
     }
 };
 
-module.exports = { create, findAll, findById, update };
+export default { create, findAll, findById, update };

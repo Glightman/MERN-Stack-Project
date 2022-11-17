@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API for test my skills in the MERN stack",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index",
     "dev": "nodemon index"
@@ -19,8 +20,13 @@
   },
   "homepage": "https://github.com/Glightman/MERN-Stack-Project#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "twilio": "^3.83.1"
   }
 }
