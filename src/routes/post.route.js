@@ -1,14 +1,19 @@
 import { Router } from "express"
+import { create, findAll } from "../controllers/post.controller.js"
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
+/* 
 import postController from "../controllers/post.controller.js";
 import authMiddleware from "../middlewares/auth.middleware.js";
-import { validId } from "../middlewares/global.middleware.js";
+import { validId } from "../middlewares/global.middleware.js"; */
 
-router.post("/create", authMiddleware, postController.createPostController);
-router.get("/", postController.findAllPostsController);
-router.get("/top", postController.topNewsController);
+router.post("/", authMiddleware, create);
+router.get("/", findAll);
+
+
+/*router.get("/top", postController.topNewsController);
 router.get("/search", postController.searchPostController);
 router.get(
   "/byIdPost/:id",
@@ -53,5 +58,5 @@ router.patch(
   authMiddleware,
   postController.commentDeletePostController
 );
-
+ */
 export default router

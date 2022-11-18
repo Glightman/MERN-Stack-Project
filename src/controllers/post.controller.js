@@ -1,7 +1,15 @@
-import postService from "../services/post.service.js"; 
+import { createService, findAllService } from "../services/post.service.js"; 
 
-const createPostController = async (req, res) => {
+const create = async (req, res) => {
   try {
+    const { authorization } = req.headers
+    console.log(authorization)
+
+    if (!authorization) {
+      return res.send(401)
+    }
+
+
     const { title, text, banner} = req.body;
 
     if (!title || !banner || !text) {
@@ -10,83 +18,30 @@ const createPostController = async (req, res) => {
       });
     }
 
-    const { id } = await postService.createPostService(
+    await createService({
       title,
       banner,
       text,
-      req.userId
-    );
-
-    return res.send({
-      message: "Publicação criada com sucesso!",
-      post: { id, title, banner, text },
+      user: req.userId,
     });
+
+    return res.send(201);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
 
-const findAllPostsController = async (req, res) => {
-  try {
-    let { limit, offset } = req.query;
 
-    limit = Number(limit);
-    offset = Number(offset);
-
-    if (!limit) {
-      limit = 5;
-    }
-
-    if (!offset) {
-      offset = 0;
-    }
-
-    const posts = await postService.findAllPostsService(offset, limit);
-
-    const total = await postService.countPosts();
-
-    const currentUrl = req.baseUrl;
-
-    const next = offset + limit;
-    const nextUrl =
-      next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
-
-    const previous = offset - limit < 0 ? null : offset - limit;
-    const previousUrl =
-      previous != null
-        ? `${currentUrl}?limit=${limit}&offset=${previous}`
-        : null;
-
-    if (posts.length === 0) {
-      return res.status(400).send({ message: "There are no posts" });
-    }
-
-    posts.shift(); // remove primeiro elemento da lista
-
-    return res.send({
-      nextUrl,
-      previousUrl,
-      limit,
-      offset,
-      total,
-
-      results: posts.map((post) => ({
-        id: post._id,
-        title: post.title,
-        banner: post.banner,
-        text: post.text,
-        likes: post.likes,
-        comments: post.comments,
-        name: post.user.name,
-        username: post.user.username,
-        avatar: post.user.avatar,
-      })),
-    });
-  } catch (err) {
-    res.status(500).send({ message: err.message });
+const findAll = async (req, res) => {
+  const post = await findAllService()
+  if (post.length === 0) {
+    return res.status(400).send({ message: "não há nenhum post" })
   }
+  res.send(post)
 };
 
+
+/* 
 const topNewsController = async (req, res) => {
   const post = await postService.topNewsService();
   
@@ -269,10 +224,11 @@ const commentDeletePostController = async (req, res) => {
   await postService.commentsDeleteService(id, userId, idComment);
 
   return res.send({ message: "Comment successfully removed" });
-};
+}; */
 
-export default {
-  createPostController,
+export {create, findAll
+  
+  /* 
   findAllPostsController,
   topNewsController,
   searchPostController,
@@ -282,5 +238,5 @@ export default {
   deletePostController,
   likePostController,
   commentPostController,
-  commentDeletePostController
+  commentDeletePostController */
 };

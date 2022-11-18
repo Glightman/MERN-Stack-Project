@@ -1,11 +1,11 @@
 import Post from "../models/Post.js";
+import User from "../models/User.js";
 
-const createPostService = (title, banner, text, userId) =>
-  Post.create({ title, banner, text, user: userId });
+const createService = (body) => Post.create(body);
 
-const findAllPostsService = (offset, limit) =>
-  Post.find().sort({ _id: -1 }).skip(offset).limit(limit).populate("user");
+const findAllService = () => Post.find()
 
+/* 
 const topNewsService = () => Post.findOne().sort({ _id: -1 }).populate("user");
 
 const findPostByIdService = (id) => Post.findById(id).populate("user");
@@ -104,11 +104,13 @@ const commentsDeleteService = (id, userId, idComment) =>
         },
       },
     }
-  );
+  ); */
 
-export default {
-  createPostService,
-  findAllPostsService,
+export {
+  createService,
+  findAllService,
+  
+  /* 
   topNewsService,
   findPostByIdService,
   searchPostService,
@@ -119,5 +121,5 @@ export default {
   likesDeleteService,
   commentsService,
   commentsDeleteService,
-  countPosts,
+  countPosts, */
 };
