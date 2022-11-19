@@ -1,4 +1,10 @@
-import { createService, findAllService, countPost, topPostService, findByIdService, searchByTitleService, byUserService } from "../services/post.service.js";
+import { createService, 
+  findAllService, 
+  countPost, 
+  topPostService, 
+  findByIdService, 
+  searchByTitleService, 
+  byUserService } from "../services/post.service.js";
 
 const create = async (req, res) => {
   try {
@@ -184,4 +190,9 @@ const byUser = async (req, res) => {
   }
 };
 
-export { create, findAll, topPost, findById, searchByTitle, byUser };
+export { create, 
+  findAll, 
+  topPost, 
+  findById, 
+  searchByTitle, 
+  byUser };
