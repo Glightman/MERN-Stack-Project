@@ -1,4 +1,4 @@
-import { createService, findAllService, countPost, topPostService, findByIdService } from "../services/post.service.js";
+import { createService, findAllService, countPost, topPostService, findByIdService, searchByTitleService, byUserService } from "../services/post.service.js";
 
 const create = async (req, res) => {
   try {
@@ -110,7 +110,7 @@ const topPost = async (req, res) => {
 }
 
 const findById = async (req, res) => {
-  try{
+  try {
     const { id } = req.params
     const post = await findByIdService(id)
     return res.send({
@@ -124,10 +124,64 @@ const findById = async (req, res) => {
         name: post.user.name,
         username: post.user.userName,
         userAvatar: post.user.avatar
-      }})
+      }
+    })
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 }
 
-export { create, findAll, topPost, findById };
+const searchByTitle = async (req, res) => {
+  try {
+    const { title } = req.query;
+    const post = await searchByTitleService(title);
+
+    if (post.length === 0) {
+      return res
+        .status(400)
+        .send({ message: "Não existe nenhum post com esse titulo" });
+    }
+
+    return res.send({
+      results: post.map((post) => ({
+        id: post._id,
+        title: post.title,
+        text: post.text,
+        banner: post.banner,
+        likes: post.likes,
+        comments: post.comments,
+        name: post.user.name,
+        username: post.user.userName,
+        userAvatar: post.user.avatar,
+      })),
+    });
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const byUser = async (req, res) => {
+  try {
+    const id = req.userId;
+    const post = await byUserService(id);
+
+    return res.send({
+      results: post.map((item) => ({
+        id: item._id,
+        title: item.title,
+        text: item.text,
+        banner: item.banner,
+        likes: item.likes,
+        comments: item.comments,
+        name: item.user.name,
+        username: item.user.userName,
+        userAvatar: item.user.avatar,
+      })),
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export { create, findAll, topPost, findById, searchByTitle, byUser };
