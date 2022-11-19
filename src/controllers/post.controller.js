@@ -7,6 +7,7 @@ import {
   searchByTitleService,
   byUserService,
   updateService,
+  eraseService,
 } from "../services/post.service.js";
 
 const create = async (req, res) => {
@@ -220,6 +221,26 @@ const update = async (req, res) => {
   }
 };
 
+const erase = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await findByIdService(id);
+
+    if (String(post.user._id) !== req.userId) {
+      return res.status(400).send({
+        message: "You didn't delete this post",
+      });
+    }
+
+    await eraseService(id);
+
+    return res.send({ message: "post deleted successfully" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 export {
   create,
   findAll,
@@ -227,5 +248,6 @@ export {
   findById,
   searchByTitle,
   byUser,
-  update
+  update,
+  erase
 };

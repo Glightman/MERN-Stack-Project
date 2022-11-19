@@ -27,6 +27,8 @@ const updateService = (id, title, text, banner) =>
       rawResult: true,
     });
 
+const eraseService = (id) => Post.findByIdAndDelete({ _id: id });
+
 export {
   createService,
   findAllService,
@@ -36,4 +38,5 @@ export {
   searchByTitleService,
   byUserService,
   updateService,
+  eraseService,
 };
