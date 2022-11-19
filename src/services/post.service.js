@@ -9,9 +9,12 @@ const countPost = () => Post.countDocuments()
 
 const topPostService = () => Post.findOne().sort({ _id: -1 }).populate("user")
 
+const findByIdService = (id) => Post.findById(id).populate("user")
+
 export {
   createService,
   findAllService,
   countPost,
-  topPostService
+  topPostService,
+  findByIdService
 };

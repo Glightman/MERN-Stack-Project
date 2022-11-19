@@ -1,4 +1,4 @@
-import { createService, findAllService, countPost, topPostService } from "../services/post.service.js";
+import { createService, findAllService, countPost, topPostService, findByIdService } from "../services/post.service.js";
 
 const create = async (req, res) => {
   try {
@@ -109,4 +109,25 @@ const topPost = async (req, res) => {
 
 }
 
-export { create, findAll, topPost };
+const findById = async (req, res) => {
+  try{
+    const { id } = req.params
+    const post = await findByIdService(id)
+    return res.send({
+      post: {
+        id: post._id,
+        tittle: post.title,
+        text: post.text,
+        banner: post.banner,
+        likes: post.likes,
+        comments: post.comments,
+        name: post.user.name,
+        username: post.user.userName,
+        userAvatar: post.user.avatar
+      }})
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
+export { create, findAll, topPost, findById };
