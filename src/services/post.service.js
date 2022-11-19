@@ -19,6 +19,14 @@ const searchByTitleService = (title) =>
 
 const byUserService = (id) => Post.find({ user: id }).sort({ _id: -1 }).populate("user");
 
+const updateService = (id, title, text, banner) =>
+  Post.findOneAndUpdate(
+    { _id: id },
+    { title, text, banner },
+    {
+      rawResult: true,
+    });
+
 export {
   createService,
   findAllService,
@@ -26,5 +34,6 @@ export {
   topPostService,
   findByIdService,
   searchByTitleService,
-  byUserService
+  byUserService,
+  updateService,
 };

@@ -1,10 +1,13 @@
-import { createService, 
-  findAllService, 
-  countPost, 
-  topPostService, 
-  findByIdService, 
-  searchByTitleService, 
-  byUserService } from "../services/post.service.js";
+import {
+  createService,
+  findAllService,
+  countPost,
+  topPostService,
+  findByIdService,
+  searchByTitleService,
+  byUserService,
+  updateService,
+} from "../services/post.service.js";
 
 const create = async (req, res) => {
   try {
@@ -190,9 +193,39 @@ const byUser = async (req, res) => {
   }
 };
 
-export { create, 
-  findAll, 
-  topPost, 
-  findById, 
-  searchByTitle, 
-  byUser };
+const update = async (req, res) => {
+  try {
+    const { title, text, banner } = req.body;
+    const { id } = req.params;
+
+    if (!title && !banner && !text) {
+      res.status(400).send({
+        message: "Submit at least one field to update the post",
+      });
+    }
+
+    const post = await findByIdService(id);
+
+    if (String(post.user._id) !== req.userId) {
+      return res.status(400).send({
+        message: "You didn't update this post",
+      });
+    }
+
+    await updateService(id, title, text, banner);
+
+    return res.send({ message: "Post successfully updated!" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export {
+  create,
+  findAll,
+  topPost,
+  findById,
+  searchByTitle,
+  byUser,
+  update
+};
