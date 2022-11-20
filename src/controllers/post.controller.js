@@ -273,4 +273,4 @@ export {
   update,
   erase,
   likePost
-};
+}; 

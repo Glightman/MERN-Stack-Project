@@ -49,5 +49,5 @@ export {
   updateService,
   eraseService,
   likePostService,
-  deleteLikePostService,
+  deleteLikePostService, 
 };
