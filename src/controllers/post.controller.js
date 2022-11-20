@@ -8,6 +8,8 @@ import {
   byUserService,
   updateService,
   eraseService,
+  likePostService,
+  deleteLikePostService,
 } from "../services/post.service.js";
 
 const create = async (req, res) => {
@@ -241,6 +243,26 @@ const erase = async (req, res) => {
   }
 };
 
+const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    const postLiked = await likePostService(id, userId);
+
+    if (!postLiked) {
+      await deleteLikePostService(id, userId);
+      return res.status(200).send({ message: "Like successfully removed" });
+    }
+
+    res.send({ message: "Like done successfully" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+
+
 export {
   create,
   findAll,
@@ -249,5 +271,6 @@ export {
   searchByTitle,
   byUser,
   update,
-  erase
+  erase,
+  likePost
 };

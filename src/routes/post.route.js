@@ -6,7 +6,8 @@ import { create,
     searchByTitle, 
     byUser,
     update,
-    erase } from "../controllers/post.controller.js"
+    erase,
+    likePost } from "../controllers/post.controller.js"
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router()
@@ -19,5 +20,6 @@ router.get("/byUser", authMiddleware, byUser )
 router.get("/:id", authMiddleware, findById)
 router.patch("/:id", authMiddleware, update)
 router.delete("/:id", authMiddleware, erase);
+router.patch("/like/:id", authMiddleware, likePost)
 
 export default router
