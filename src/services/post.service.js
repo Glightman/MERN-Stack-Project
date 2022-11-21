@@ -38,6 +38,25 @@ const likePostService = (idPost, userId) =>
 const deleteLikePostService = (idPost, userId) =>
   Post.findOneAndUpdate({ _id: idPost }, { $pull: { likes: { userId } } });
 
+const addCommentService = (idPost, comment, userId) => {
+  const idComment = Math.floor(Date.now() * Math.random()).toString(36);
+
+  return Post.findOneAndUpdate(
+    { _id: idPost },
+    {
+      $push: {
+        comments: { idComment, userId, comment, createdAt: new Date() },
+      },
+    }
+  );
+};
+  
+const deleteCommentService = (idPost, idComment, userId) =>
+  Post.findOneAndUpdate(
+    { _id: idPost },
+    { $pull: { comments: { idComment, userId } } }
+  );
+
 export {
   createService,
   findAllService,
@@ -49,7 +68,9 @@ export {
   updateService,
   eraseService,
   likePostService,
-  deleteLikePostService, 
+  deleteLikePostService,
+  addCommentService,
+  deleteCommentService
 };
 
 /* teste */
