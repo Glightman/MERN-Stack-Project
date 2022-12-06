@@ -1,0 +1,25 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DOCUMENTAÇÃO DA API BREAKING NEWS",
+        "description": "Nessa documentação você vai encontrar informações úteis para consultar e testar os end-points da API Breaking News. Não se esqueça de registrar sua autorização.",
+        "contact": {
+            "email": "gabriellima36716@gmail.com",
+            "phone number": "+5573988931076",
+            "owner name": "Gabriel Santana"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local Server"
+        }
+    ],
+    "paths": {
+        "/user/": {
+
+        },
+    },
+    "components": {}
+}
