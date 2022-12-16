@@ -24,6 +24,6 @@ router.patch("/:id", authMiddleware, update)
 router.delete("/:id", authMiddleware, erase);
 router.patch("/like/:id", authMiddleware, likePost)
 router.patch("/comment/:id", authMiddleware, addComment);
-router.patch("/comment/:idNews/:idComment", authMiddleware, deleteComment);
+router.patch("/comment/:idPost/:idComment", authMiddleware, deleteComment);
 
 export default router

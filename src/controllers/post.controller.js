@@ -285,11 +285,11 @@ const addComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   try {
-    const { idNews, idComment } = req.params;
+    const { idPost, idComment } = req.params;
     const userId = req.userId;
 
     const commentDeleted = await deleteCommentService(
-      idNews,
+      idPost,
       idComment,
       userId
     );
