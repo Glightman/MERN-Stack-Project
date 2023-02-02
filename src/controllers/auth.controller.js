@@ -17,9 +17,9 @@ const login = async (req, res) => {
             return res.status(404).send({ message: "Email ou senha inválidos" })
         }
 
-        const token = generateToken(user.id)
+        const jwToken = generateToken(user.id)
 
-        res.send({token})
+        res.send({jwToken})
     } catch (err) {
         res.status(500).send(err.message)
     }

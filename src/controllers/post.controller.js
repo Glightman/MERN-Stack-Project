@@ -39,9 +39,16 @@ const create = async (req, res) => {
       user: req.userId,
     });
 
-    return res.send(201);
+    return res.status(201).send({
+      message: "Notícia postada com sucesso!",
+      new: {
+        title,
+        text,
+        banner
+      }
+    });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({ message: err.message, motivo: 'foi aqui' });
   }
 };
 
