@@ -8,10 +8,10 @@ import postRoute from "./src/routes/post.route.js"
 import swaggerRoute from "./src/routes/swagger.route.cjs"
 import cors from 'cors';
 
-const alloedOrigins = ["http://localhost:3000"]
-const corsOptions = {
-    origin: alloedOrigins,
-}
+const allowedOrigins = ['http://localhost:3000']; 
+const corsOption = {
+    origin: allowedOrigins,
+};
 
 dotenv.config()
 
@@ -20,7 +20,9 @@ const app = express();
 
 connectDatabase()
 app.use(express.json());
-app.use(cors(corsOptions))
+
+app.use(cors(corsOption))
+
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
