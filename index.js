@@ -8,7 +8,7 @@ import postRoute from "./src/routes/post.route.js"
 import swaggerRoute from "./src/routes/swagger.route.cjs"
 import cors from 'cors';
 
-const allowedOrigins = ['http://localhost:3000']; 
+const allowedOrigins = ['http://localhost:3000', 'http://192.168.207.218:3000']; 
 const corsOption = {
     origin: allowedOrigins,
 };
